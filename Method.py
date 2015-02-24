@@ -82,6 +82,8 @@ def find_methods_details(methods_list, soup):
         method_details = method_details.findNext("ul")
         comment = method_details.find("div", {"class": "block"})
         if comment:
+            if comment.find("span", {"class": "descfrmTypeLabel"}):
+                comment = comment.findNext("div", {"class": "block"})
             method.comments = ReverseDoc.create_comment(str(comment.text), True)
         method_parameters = method_details.find("span", {"class": "paramLabel"})
         if method_parameters:
